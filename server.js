@@ -5,7 +5,16 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+// app.use(cors({ origin: "http://localhost:5173" }));
+// ✅ Allow frontend from both local and Netlify
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://course-management-project.netlify.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 
 const mongoURI = process.env.MONGO_URI || "mongodb+srv://aishnidesh21:w3hfJwqv3PV851C8@cluster0.jxovuda.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
